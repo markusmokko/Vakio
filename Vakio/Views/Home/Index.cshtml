@@ -1,0 +1,19 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+ <script type="text/javascript">
+            $(document).ready(function () {
+                $('.button').button();
+            });
+        </script>
+<div style="margin:50px;">
+<h2>Kirjaudu sisään</h2>
+
+@using(Html.BeginForm("Index","Home",FormMethod.Post))
+{
+<input name="username" />
+<input type="password" name="password" />
+<input type="submit" class="button" value="Olen Manu fani!"/>
+}
+
+</div>

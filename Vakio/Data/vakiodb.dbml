@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="vakiodb" Class="DataClasses1DataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=tbi58oapvy.database.windows.net;Initial Catalog=vakiodb;Persist Security Info=True;User ID=Roggo" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="vakiodbConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.[User]" Member="Users">
+    <Type Name="User">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Username" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Password" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="User_Veikkaukset" Member="Veikkauksets" ThisKey="Id" OtherKey="UserId" Type="Veikkaukset" />
+      <Association Name="User_Nakkilista" Member="Nakkilistas" ThisKey="Id" OtherKey="UserId" Type="Nakkilista" />
+      <Association Name="User_Shout" Member="Shouts" ThisKey="Id" OtherKey="CreatedBy" Type="Shout" />
+      <Association Name="User_Voitto" Member="Voittos" ThisKey="Id" OtherKey="UserId" Type="Voitto" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Pelit" Member="Pelits">
+    <Type Name="Pelit">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Joukkueet" Type="System.String" DbType="NVarChar(250) NOT NULL" CanBeNull="false" />
+      <Column Name="Viikko" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Numero" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Veikkaukset" Member="Veikkauksets">
+    <Type Name="Veikkaukset">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Peli1" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Peli2" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Peli3" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Peli4" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Peli5" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Peli6" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Peli7" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Peli8" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Peli9" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Peli10" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Peli11" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Peli12" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Peli13" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="MasterPlan" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Osumia" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Viikko" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="User_Veikkaukset" Member="User" ThisKey="UserId" OtherKey="Id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Nakkilista" Member="Nakkilistas">
+    <Type Name="Nakkilista">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Viikko" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="User_Nakkilista" Member="User" ThisKey="UserId" OtherKey="Id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Shout" Member="Shouts">
+    <Type Name="Shout">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Kommentti" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="CreatedBy" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Created" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="Viikko" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="User_Shout" Member="User" ThisKey="CreatedBy" OtherKey="Id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Voitto" Member="Voittos">
+    <Type Name="Voitto">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="UserId" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Voitto" Member="Voitto1" Type="System.Decimal" DbType="Decimal(18,0) NOT NULL" CanBeNull="false" />
+      <Column Name="Viikko" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="User_Voitto" Member="User" ThisKey="UserId" OtherKey="Id" Type="User" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

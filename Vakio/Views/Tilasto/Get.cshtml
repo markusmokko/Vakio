@@ -1,0 +1,88 @@
+﻿@model Vakio.Models.TilastotModel
+@{
+    var tabs = Model.Tilastot.GroupBy(x => x.Key.ToString().Substring(0, 4)).Select(x=>x.Key).ToList();
+      
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".accordion").accordion();
+        $("#tabs").tabs();
+    });
+</script>
+
+
+<div id="tabs">
+  <ul>
+      @foreach (var tab in tabs) { 
+          <li><a href="#@tab">@tab</a></li>
+      }    
+  </ul>
+    @foreach (var tab in tabs) { 
+        <div id="@tab">
+    
+
+<div class="accordion">	
+	@foreach (var item in Model.Tilastot.Where(x=>x.Key.ToString().Contains(tab)).OrderByDescending(x => x.Key))
+ {
+     var maksaja = Vakio.Helpers.UserHelper.Maksaja(item.Key);
+        <h3><a href="#">Viikko @item.Key</a></h3>
+	    <div>            
+		    @foreach (var tilasto in item.Value)
+      {
+             <div class="divinline" style="margin:0 10px 0 10px;">
+
+                    <h3 @if (maksaja.Id == tilasto.Key)
+                        {<text>style="color:red"</text>}>@Vakio.Helpers.UserHelper.GetUserName(tilasto.Key)</h3>
+                    <table class="vakio" style="margin:0;">
+                        <thead>
+                            <tr>
+                                <th>1</th>
+                                <th>x</th>
+                                <th>2</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < tilasto.Value.Count; i++)
+                            {
+                                <tr @if (@Vakio.Helpers.SolveVeikkaus.IsGameCorrect(tilasto.Key, i + 1, item.Key))
+                                    {<text>class="oikein"</text>}
+                                    else
+                                    {<text>class="vaarin"</text>}>
+                                    <td class="loota">
+                                        @if (tilasto.Value[i].Yks)
+                                        {
+                                            <text>x</text>
+                                        }
+                                    </td>
+                                    <td class="loota">
+                                        @if (tilasto.Value[i].Risti)
+                                        {
+                                            <text>x</text>
+                                        }
+                                    </td>
+                                    <td class="loota">
+                                        @if (tilasto.Value[i].Kaks)
+                                        {
+                                            <text>x</text>
+                                        }
+                                    </td>
+                                </tr>
+            
+                            }
+                            <tr>
+                                <td colspan="3" style="text-align:right;">
+                                    @*= @Vakio.Helpers.UserHelper.GetWeekHitCount(tilasto.Key, item.Key)*@
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>    
+      }
+	    </div>     
+    }
+</div>
+            
+        </div>
+    }    
+    
+</div>

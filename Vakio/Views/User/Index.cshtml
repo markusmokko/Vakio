@@ -1,0 +1,50 @@
+﻿@model List<Vakio.Models.UserModel>
+<script>
+    $(document).ready(function () {
+        $('#usertilastotable').tablesorter();
+        $('.showtooltop').hover(
+   function() {
+       $(this).find('.tooltop').show();
+   },
+   function() {
+       $(this).find('.tooltop').hide();
+   }
+);
+    });
+</script>
+
+<div>
+    <table id="usertilastotable" class="tablesorter">
+        <thead>
+            <tr>
+                <th>Käyttäjä</th>
+                <th>Maksettuja pelejä</th>
+                <th>Maksettu osuma %</th>
+                <th>Osumaprosentti</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <span class="showtooltop">@item.UserName</span>
+                    </td>
+                    <td>
+                        <span class="showtooltop">@item.MaksettuCount ( @{var sum = @item.MaksettuCount * 32; <text>@sum.ToString("c")</text>})
+                            <span class="tooltop">
+                                @foreach (var user in item.MaksetutPelit) { 
+                                <div>@user.Viikko</div>
+                                }
+                            </span></span>
+                    </td>
+                    <td>
+                       <span>@item.Maksajaprosentti.ToString("p")<span class="tooltop"></span></span>
+                    </td>
+                    <td><span>@item.Osumaprosentti.ToString("p")<span class="tooltop"></span></span></td>
+                </tr>           
+            }
+        </tbody>
+    </table>
+    
+</div>

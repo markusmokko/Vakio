@@ -1,0 +1,45 @@
+﻿@model List<Vakio.Data.Pelit>
+@{
+    ViewBag.Title = "InsertGames";
+}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.button').button();
+        $('#fetchGames').click(function () {
+            $.ajax(
+                        {
+                            url: '@Url.Action("GetGames","Vakio")',
+                            success: function (data) {
+                                var n = 0;
+                                var obj = JSON.parse(data);
+                                for (var key in obj) {
+                                    if (obj.hasOwnProperty(key)) {
+                                        var value = obj[key];
+                                        $('#'+n).val(value.Joukkueet);
+                                        n++;                                        
+                                    }
+                                }
+                                
+                            }
+                        });
+        });
+    });
+</script>
+<h2>Lisää pelit</h2>
+<button class="button" id="fetchGames">Hae data</button>
+<h4>Syötä muodossa koti - vieras</h4>
+@using(Html.BeginForm("InsertGames","Vakio",FormMethod.Post)){
+<table class="vakio">
+@for (int i = 0; i < 13; i++)
+{
+    @Html.HiddenFor(x=>x[i].Numero)
+    @Html.HiddenFor(x=>x[i].Viikko)
+    <tr>
+        <td>@i</td>
+        <td>@Html.TextBoxFor(x => x[i].Joukkueet, new { id=i})</td>
+    </tr>
+}
+</table>
+    <input type="submit" value="Tallenna" />
+}
+

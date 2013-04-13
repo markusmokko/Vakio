@@ -1,0 +1,19 @@
+﻿@model System.Collections.Generic.List<Vakio.Data.Voitto>
+
+<div>Ollaan voitolla: @ViewBag.Summa</div>
+<table>
+    <thead>
+        <tr>
+            <th>Pelaaja</th>
+            <th>Viikko</th>
+            <th>Voitto</th>
+        </tr>
+    </thead>
+    @foreach (var item in Model.OrderBy(x=>x.Viikko)) {
+        <tr>
+            <td>@item.User.Username</td>
+            <td>@item.Viikko</td>
+            <td style="text-align:right;width:150px;">@item.Voitto1.ToString("c", new System.Globalization.CultureInfo("fi-FI"))</td>
+        </tr>    
+    }
+</table>

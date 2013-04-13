@@ -1,0 +1,298 @@
+﻿@model Vakio.Models.PelitModel
+
+@{    
+    ViewBag.Title = "Vakio";
+    var maksajaId = Vakio.Helpers.UserHelper.Maksaja(Convert.ToInt32(DateTime.Now.Year + "" + (DateTime.Now.DayOfYear+4) / 7)).Id;
+}
+<script type="text/javascript">
+    $(document).ready(function () {        
+        function refreshImage() {            
+            d = new Date();
+            $("#tekstitvkuva").attr("src", "http://www.yle.fi/tekstitv/images/P671_01.gif");
+        }
+        setInterval(refreshImage, 5000);
+        
+        var yep = true;
+        $('.vakio').each(function () {
+            var varma = 0;
+            var vaihto = 0;
+            var tays = 0;
+            $(this).find('tr').each(function () {                
+                var count = 0;                
+                $(this).find('td').each(function () {
+                    if ($(this).find('input').is(':checked') || $.trim($(this).text())=="x") {
+                        count++;
+                    };
+                });
+                switch (count) {
+                    case 1:
+                        $(this).closest('tr').find('td.loota').addClass('varma');
+                        if (yep) {
+                            varma++;
+                        }
+                        break;
+                    case 2:
+                        $(this).closest('tr').find('td.loota').addClass('varmistus');
+                        if (yep) {
+                            vaihto++;
+                        }
+                        break;
+                    case 3:
+                        $(this).closest('tr').find('td.loota').addClass('tays');
+                        if (yep) {
+                            tays++;
+                        }
+                        break;
+                    default:
+                        $(this).closest('tr').find('td.loota').removeClass('varma').removeClass('varmistus').removeClass('tays')
+                        break;
+                };
+            });
+            if (yep) {
+                $('.varma span').html(varma);
+                $('.varmistus span').html(vaihto);
+                $('.tays span').html(tays);
+            }            
+            yep = false;
+        });
+        $('input:checkbox').change(function () {            
+            var count = 0;
+            var varma = 0;
+            var vaihto = 0;
+            var tays = 0;
+            
+            $(this).closest('tr').find('td').each(function () {
+                if ($(this).find('input').is(':checked')) {
+                    count++;
+                };                    
+            });
+            
+            switch (count) {
+                case 1:
+                    varma++;
+                    $(this).closest('tr').find('td.loota').removeClass('varma').removeClass('varmistus').removeClass('tays')
+                    $(this).closest('tr').find('td.loota').addClass('varma');
+                    break;
+                case 2:
+                    vaihto++;
+                    $(this).closest('tr').find('td.loota').removeClass('varma').removeClass('varmistus').removeClass('tays')
+                    $(this).closest('tr').find('td.loota').addClass('varmistus');
+                    break;
+                case 3:
+                    tays++;
+                    $(this).closest('tr').find('td.loota').removeClass('varma').removeClass('varmistus').removeClass('tays')
+                    $(this).closest('tr').find('td.loota').addClass('tays');
+                    break;
+                default:
+                    $(this).closest('tr').find('td.loota').removeClass('varma').removeClass('varmistus').removeClass('tays')
+                    break;
+
+            };
+            $('.varma span').html(varma);
+            $('.varmistus span').html(vaihto);
+            $('.tays span').html(tays);
+        });
+        $('#NewShout_Kommentti').keypress(function (e) {            
+            if (e.which == 13) {
+                $(this).text("");
+                $('#shoutnappi').click();                
+                return false;
+            }            
+        });
+        $('#tekstitv').hover(function () {
+            $('#tekstitvkuva').toggle();
+        });
+
+        $('#tilastotLink').click(function () {
+            $('#tilastotdialog').dialog({
+                width: '800px',
+                open: function (event, ui) {
+                    $.ajax(
+                    {
+                        url: '@Url.Action("Index","User")',
+                        success: function (result) {
+                            $('#tilastotdialog').html(result);
+                        }
+                    });
+                }
+            });
+        });
+
+        $('#voitotLink').hover(function () {
+            $('#voitotdialog').dialog({
+                width: '400px',
+                open: function (event, ui) {
+                    $.ajax(
+                    {
+                        url: '@Url.Action("GetVoitot","Vakio")',
+                            success: function (result) {
+                                $('#voitotdialog').html(result);
+                            }
+                        });                    
+                }
+            });
+        },
+        function () {
+            $('#voitotdialog').dialog("close");
+        });
+
+        $('#tilastoLink').click(function () {
+            $('#tilastot').dialog({
+                width: '1100px',
+                open: function (event, ui) {
+                    $.ajax(
+                        {
+                            url: '@Url.Action("Get","Tilasto")',
+                            success: function (result) {
+                                $('#tilastot').html(result);
+                            }
+                        });
+                    $('#tilastot').dialog({ position: "top" });
+                }
+            });
+        });
+        $('.addVoitto').click(function () {
+            $('#addvoittodialog').dialog({
+                width: '400px',
+                open: function (event, ui) {
+                    $.ajax(
+                        {
+                            url: '@Url.Action("AddVoitto","Vakio")',
+                            success: function (result) {
+                                $('#addvoittodialog').html(result);                                
+                            }
+                        });
+                    $('#addvoittodialog').dialog({ position: "top" });
+                }
+            });
+        });
+    });
+</script>
+<img usemap="#P671_01" src="http://www.yle.fi/tekstitv/images/P671_01.gif" id="tekstitvkuva"alt="Vakion tilanne tekstitv:ssä" ismap="" style="display:none;position:absolute;top:554px;left:226px;">
+<div id="tilastot"></div>
+<div id="voitotdialog"></div>
+<div id="addvoittodialog"></div>
+<div id="tilastotdialog"></div>
+
+<h2>Vakio - <span  id="tilastoLink" style="cursor:pointer">tulokset</span> - <span id="voitotLink" style="cursor:pointer">voitot</span> - <span id="tilastotLink" style="cursor:pointer">tilastot</span> - <span style="cursor:pointer;" class="addVoitto">Lisää voitto</span></h2>
+@Html.ActionLink("Muokkaa riviä","InsertGames","Vakio")
+<span>Tulosten syöttö: Tulokset/qwerty12oi</span>
+@if(Vakio.Helpers.MiscHelper.NakkilistaShortage()){
+    <div class="ui-widget" style="width:400px;">
+				<div class="ui-state-error ui-corner-all" style="padding: 0 .7em;"> 
+					<p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: .3em;"></span> 
+					<strong>Alert:</strong> Nakkilista kohta tyhjä!</p>
+				</div>
+			</div>
+}
+@if (Model.Pelit.Count == 0)
+{
+    @Html.ActionLink("Syötä viikon matsit", "InsertGames");
+}
+else
+{
+    <div class="divinline">
+        @using (Html.BeginForm("Index", "Vakio", FormMethod.Post))
+        {
+            <h3 @if(Vakio.Helpers.UserHelper.GetUserId(User.Identity.Name)==maksajaId){<text>style="color:red;cursor:pointer"</text>}>@ViewBag.User ( @Vakio.Helpers.UserHelper.GetHitrate(Vakio.Helpers.UserHelper.GetUserId(User.Identity.Name)).ToString("p") ) )</h3>
+            <table class="vakio">
+                <thead>
+                    <tr>
+                        <th>%</th>
+                        <th></th>
+                        <th style="text-align: left;">Peli</th>
+                        <th>1</th>
+                        <th>x</th>
+                        <th>2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < Model.Pelit.Count; i++)
+                    {
+                        <tr>
+                            @Html.HiddenFor(x => x.Pelit[i].ID)
+                            @Html.HiddenFor(x => x.Pelit[i].Viikko)
+                            @Html.HiddenFor(x => x.VeikkauksetChekit[i].Numero)
+                            @if (Model.Peliprosentit!=null)
+                            {
+                            <td>@Model.Peliprosentit["t"+(i+1).ToString()].Prosentti1 @Model.Peliprosentit["t"+(i+1).ToString()].ProsenttiX @Model.Peliprosentit["t"+(i+1).ToString()].Prosentti2</td>    
+                            }                            
+                            <td style="text-align:right">@{var d = i + 1;}@d.</td>
+                            <td class="tiimi">@Model.Pelit[i].Joukkueet</td>
+                            <td class="loota yks">@Html.CheckBoxFor(x => x.VeikkauksetChekit[i].Yks)</td>
+                            <td class="loota risti">@Html.CheckBoxFor(x => x.VeikkauksetChekit[i].Risti)</td>
+                            <td class="loota kaks">@Html.CheckBoxFor(x => x.VeikkauksetChekit[i].Kaks)</td>
+                        </tr>
+                        if (i == 2 || i == 5 || i == 8)
+                        {
+                            <tr>
+                                <td colspan="5" style="border-bottom:dashed 1px green;margin-bottom:3px;"></td>
+                            </tr>    
+                        }
+                    }
+                    @*<tr>
+                        <td colspan="2"></td>
+                        <td class="varma"><span></span>/5</td>
+                        <td class="varmistus"><span></span>/4</td>
+                        <td class="tays"><span></span>/4</td>
+                    </tr>*@
+                </tbody>
+            </table>            
+            <input type="submit" value="Tallenna"/> <span> - </span><span style="cursor:pointer" id="tekstitv">teksti-tv</span>
+        }
+    </div>
+        foreach (var item in Model.Muiden.Where(x => x.Key != 99))
+        {
+        <div class="divinline" style="margin:18px 0 40px 10px;">
+            <h3 @if (item.Key == maksajaId)
+                {<text>style="color:red"</text>}>@Vakio.Helpers.UserHelper.GetUserName(item.Key) <br />( @Vakio.Helpers.UserHelper.GetHitrate(item.Key).ToString("p") )</h3>                       
+            <table class="vakio">
+                <thead>
+                    <tr>                        
+                        <th>1</th>
+                        <th>x</th>
+                        <th>2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (int i = 0; i < item.Value.Count; i++)
+                    {
+                        <tr>                            
+                            <td class="loota">
+                                @if (item.Value[i].Yks)
+                                {
+                                    <text>x</text>
+                                }
+                            </td>
+                            <td class="loota">
+                                @if (item.Value[i].Risti)
+                                {
+                                    <text>x</text>
+                                }
+                            </td>
+                            <td class="loota">
+                                @if (item.Value[i].Kaks)
+                                {
+                                    <text>x</text>
+                                }
+                            </td>
+                        </tr>
+                        if (i == 2 || i == 5 || i == 8)
+                        {
+                            <tr>
+                                <td colspan="5" style="border-bottom:dashed 1px green;margin-bottom:3px;"></td>
+                            </tr>
+                        }
+                    }                    
+                </tbody>
+            </table>
+        </div>    
+        }
+        if (!Model.Muiden.Any(x => x.Key == 99))
+        {
+        @Html.ActionLink("Syötä tulokset", "Index", "Results");
+        }
+    <div class="divinline">
+        @Html.Action("Index", "Shout")
+    </div>
+}

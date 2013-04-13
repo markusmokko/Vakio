@@ -1,0 +1,10 @@
+﻿@model List<Vakio.Data.Shout>
+@foreach (var item in Model)
+    {
+        <div class="comment">
+            @item.Kommentti
+            <br />
+            <span class="signature">@item.User.Username @item.Created</span>
+            <div style="clear:both"></div>
+        </div>
+    }

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Vakio", "Vakio\Vakio.csproj", "{EDFEE1DF-419D-4568-8DE1-497F11755952}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{A1929A4B-626E-40BE-A34B-C7959086C7E5}"
+	ProjectSection(SolutionItems) = preProject
+		.nuget\packages.config = .nuget\packages.config
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EDFEE1DF-419D-4568-8DE1-497F11755952}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EDFEE1DF-419D-4568-8DE1-497F11755952}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EDFEE1DF-419D-4568-8DE1-497F11755952}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EDFEE1DF-419D-4568-8DE1-497F11755952}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

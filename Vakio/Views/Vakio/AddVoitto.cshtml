@@ -1,0 +1,17 @@
+﻿<script type="text/javascript">
+    $('#add').click(function () {
+        $('#voitto').val($('#voitto').val().replace(',', '.'));
+        $.ajax(
+                           {
+                               url: '@Url.Action("AddVoitto","Vakio")',
+                               data: 'summa=' + $('#voitto').val(),
+                               type: 'POST',
+                               success: function (result) {
+                                   $('#addvoittodialog').dialog('close');
+                               }
+                           });
+    });
+</script>
+Summa:
+<input id="voitto" />
+<button id="add" class="button">Do it!</button>

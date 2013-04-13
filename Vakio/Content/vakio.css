@@ -1,0 +1,233 @@
+﻿html {
+    background-color: #e2e2e2;
+    margin: 0;
+    padding: 0;
+    height:100%;
+}
+
+body {
+    background-color: #fff;    
+    color: #333;
+    font-size: .85em;
+    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    margin: 0;
+    padding: 0;
+    height:90%;
+}
+
+a {
+    color: #333;
+    outline: none;
+    padding-left: 3px;
+    padding-right: 3px;
+    text-decoration: underline;
+}
+
+    a:link, a:visited,
+    a:active, a:hover {
+        color: #333;
+    }
+
+    a:hover {
+        background-color: #c7d1d6;
+    }
+    .content-wrapper {
+    margin: 0 auto;
+    max-width: 960px;
+}
+
+#body {
+    background-color: #efeeef;
+    clear: both;
+    padding-bottom: 35px;
+    height:90%;
+    padding-left:20px;
+}
+
+    .main-content {
+        background: url("../Images/accent.png") no-repeat;
+        padding-left: 10px;
+        padding-top: 30px;
+    }
+
+    .featured + .main-content {
+        background: url("../Images/heroAccent.png") no-repeat;
+    }
+    .site-title {
+    color: #c8c8c8;
+    font-family: Rockwell, Consolas, "Courier New", Courier, monospace;
+    font-size: 2.3em;
+    margin: 0;
+}
+
+.site-title a, .site-title a:hover, .site-title a:active {
+    background: none;
+    color: #c8c8c8;
+    outline: none;
+    text-decoration: none;
+}
+.featured {
+    background-color: #fff;
+}
+
+    .featured .content-wrapper {
+        background-color: #7ac0da;
+        background-image: -ms-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
+        background-image: -o-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
+        background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #7ac0da), color-stop(1, #a4d4e6));
+        background-image: -webkit-linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
+        background-image: linear-gradient(left, #7ac0da 0%, #a4d4e6 100%);
+        color: #3e5667;
+        padding: 20px 40px 30px 40px;
+    }
+
+        .featured hgroup.title h1, .featured hgroup.title h2 {
+            color: #fff;
+        }
+
+        .featured p {
+            font-size: 1.1em;
+        }
+header .content-wrapper {
+    padding-top: 20px; 
+}
+
+footer {
+    clear: both;
+    background-color: #e2e2e2;
+    font-size: .8em;
+    height: 80px;
+}
+div.divinline {
+    float:left;
+    width:auto;
+    margin:40px;
+}
+table.vakio {
+}
+    table.vakio td.tiimi {
+        width:200px;
+    }
+    table.vakio td.loota {
+        border: 1px solid black;
+        width: 20px;
+        text-align: center;
+        height: 24px;
+    }
+    table.vakio td.yks {
+        
+    }
+    table.vakio td.risti {
+        
+    }
+    table.vakio td.kaks {
+        
+    }
+
+    header, footer, hgroup,
+nav, section {
+    display: block;
+}
+
+    .float-left {
+    float: left;
+}
+
+.float-right {
+    float: right;
+}
+h1, h2, h3,
+h4, h5, h6 {
+    color: #000;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.75em;
+}
+
+h3 {
+    font-size: 1.2em;
+}
+
+h4 {
+    font-size: 1.1em;
+}
+
+h5, h6 {
+    font-size: 1em;
+}
+div.comment {
+    border:1px solid #716f6f;
+    background-color:#efeeef;
+    padding:7px 7px 2px 7px;
+    width:250px;
+}
+.signature {
+    float:right;
+    color:#b6b3b3;
+    font-size:xx-small;
+
+}
+textarea {
+    width:250px;
+    height:60px;
+}
+#shoutcontainer {
+    margin-top: 65px;
+}
+.oikein {
+    background-color:#41e954;
+}
+.vaarin {
+    background-color:#f25343;
+}
+.varma {
+    background-color:#d34141;
+}
+.varmistus {
+    background-color:#efec4d;
+}
+.tays {
+    background-color:#77e83a;
+}
+#messages {
+    max-height:550px;
+    width:500px;
+    overflow:auto;
+}
+#messages {
+    padding:0;
+    margin:0;    
+}
+#messages li {    
+    padding:0;
+    margin:2px 0 2px 0;
+    list-style:none;
+}
+.chatTime {
+    font-size:60%;
+    float:right;
+    color:#121111;
+}
+.chatUser{
+    font-size:80%;    
+    display:inline-block;
+    font-weight:bold;
+}
+.chatText {
+    font-size:80%;
+}
+.tooltop {
+    margin:10px;
+    position:absolute;
+    z-index:999999;
+    background-color:#efeeef;
+    border:1px solid #000;
+    display:none;
+}
